@@ -1,0 +1,20 @@
+Tipos de servicio web
+Como mencionamos en el tema anterior, existen distintos tipos de servicios web que podemos clasificar basados en el protocolo de comunicación que usan.
+
+Hace algunas décadas, el protocolo para el uso de servicios web más popular era SOAP: Simple Access Object Protocol o protocolo de acceso simple a objetos. Este protocolo estaba basado fuertemente en el uso de XML, el cliente y el servidor intercambiaban información del servicio web usando mensajes estructurados en XML.
+
+Tan popular era XML para el intercambio de información, que a la capacidad de que un cliente web intercambiara mensajes con el servidor usando JavaScript, se le conoció como AJAX o asynchronous javascript and XML, que podemos traducir como JavaScript asíncrono y XML.
+
+Las deficiencias de SOAP recaín en que era un protocolo extremadamente verboso, por lo que el intercambio de un simple mensaje implicaba que este se estructurara en una enorme cantidad de etiquetas XML que describían el mensaje, las acciones y el servicio web. Implementar un servicio web con SOAP requería de un amplio conocimiento del protocolo.
+
+Desde hace ya varios años, las y los desarrolladores comenzaron a migrar a una alternativa más ligera basada en estándares abiertos, el protocolo REST. REST son las siglas de Representational state transfer, que puede ser traducido como estado figurativo de transferencia, lo cual es probablemente que no nos diga mucho acerca del protocolo.
+
+La clave del funcionamiento de REST es que está fuertemente basado en el protocolo HTTP, mismo que se usa para el funcionamiento de la web en general. En REST, el actor principal son los recursos, mismos que son identificados por una URL única, las acciones que se pueden realizar sobre este recurso se especifican vía verbos HTTP y la representación del recurso no está casada con ninguna tecnología, bien pueda usar XML, HTML, o uno de los formatos más populares actualmente: JSON.
+
+REST no es verboso como SOAP, no requiere de tantos conocimientos particulares, si conoces las bases de HTTP, estás bien encaminado a realizar servicios web REST.
+
+En los últimos años, se ha introducido una alternativa muy popular a REST, los servicios web con graphql. Estos servicios web exponen un esquema de datos que el cliente interpreta, en base a este esquema, se pueden generar consultas escritas en el lenguaje de consultas de graphql, a través de las cuales podemos obtener datos.
+
+La gran ventaja de graphql es que el lenguaje de consultas le ofrece al cliente mucha flexibilidad para consultar los datos que necesita, en la estructura que los necesita. Tanto en REST como en SOAP, sólo el servidor puede definir la estructura en que la información será enviada, el cliente sólo lee.
+
+Continuemos.
