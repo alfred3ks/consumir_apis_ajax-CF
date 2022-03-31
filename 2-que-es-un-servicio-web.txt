@@ -1,0 +1,12 @@
+Qué es un servicio web
+En términos técnicos, un servicios web es una aplicación diseñada para establecer comunicación con algún otro programa, para eso se establecen reglas de comunicación como las direcciones para encontrar los recursos, qué acciones se pueden realizar con dichos recursos, y cómo se va a estructurar el texto que se intercambia entre ambos programas.
+
+Un servicio web, no hace asunciones acerca de la tecnología que usarán los clientes para consumir la información, así, bien el servidor puede estar programado con JAVA y el cliente usar JavaScript, o cualquier otro tipo de tecnología. Es por esto que se establece un formato para el texto que sea estándar, este puede ser una estructura JSON, XML, entre otros.
+
+La web funciona bajo una arquitectura cliente/servidor, donde el servidor es la o las computadora(s) que almacena la información y los recursos, mientras que el cliente es cualquier dispositivo que se conecte.
+
+En términos prácticos, un servicio web está diseñado para intercambiar mensajes con otra aplicación, permitiéndonos enviar y recibir información.
+
+Para establecer las reglas de comunicación, un servicio web puede usar algún protocolo de comunicación como graphql, REST, SOAP, etc. Estos protocolos establecen una normativa de cómo intercambiarán mensajes el cliente y el servidor. Una vez que se ha elejido el protocolo, los y las desarrolladoras implementan sus aplicaciones siguiendo estas reglas para el envío y la lectura de mensajes.
+
+En este curso, vamos a trabajar con servicios web basados en REST, uno de los protocolos más populares de la actualidad.
