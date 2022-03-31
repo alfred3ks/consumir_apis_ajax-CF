@@ -77,7 +77,9 @@ fetch(url)
 Ahora si la respuesta no viene en JSON el objeto response tambien tiene un metodo .text(), lo que hara es parsear la informacion hacia texto plano.
 */
 
-fetch(url)
+const URL = 'https://618404bd91d76c00172d1d23.mockapi.io/api/profile';
+
+fetch(URL)
     .then(
         (response) => response.text()
     ).then(

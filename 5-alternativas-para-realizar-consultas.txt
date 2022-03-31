@@ -1,0 +1,9 @@
+Alternativas para realizar consultas:
+
+A lo largo del curso estaremos usando fetch, una API estándar que todos los navegadores web implementan, a través de la cual podemos realizar consultas a un servicio web, sin embargo, existen alternativas al uso de fetch que podrás encontrar en algunos otros escenarios.
+
+Para empezar, hay que recordar que fetch no es parte del lenguaje JavaScript, es una API que los navegadores exponen, por lo que si estás usando JavaScript fuera de un navegador, fetch puede no estar disponible.
+
+Node.js expone un módulo http a través del cual podemos programar scripts que hagan peticiones http a otros puntos, permitiéndonos leer información de algún otro servicio web.
+
+Alternativamente, existen librerías que añaden funcionalidad extra y nos permiten hacer peticiones a un servicio web de una manera más legible y en general, más sencilla. axios es una librería muy popular diseñada para la comunicación con un servicio web, entre sus grandes ventajas está que puedes usar dicha librería tanto en el frontend como en el backend con la misma API, es decir, escribiendo el mismo código puedes hacer las mismas consultas.
