@@ -1,0 +1,12 @@
+Qué veremos en el curso de AJAX
+El curso está organizado en aproximadamente 25 temas. El primer bloque, el de introducción es para hablar sobre conceptos fundamentales que estaremos usando a lo largo del curso.
+
+El curso de fundamentos está dedicado al API, las opciones y las configuraciones de fetch, el api nativo del navegador para realizar consultas AJAX.
+
+Posteriormente, el bloque 3 es para hablar sobre políticas CORs, mismas que se usan para definir cómo servicios de distintos dominios pueden compartir recursos, este bloque es muy importante cuando trabajamos con AJAX, y te ayudaría ampliamente
+
+En el último bloque hacemos un proyecto CRUD con el API de JSONPlaceholder, CRUD son las siglas para referirnos a las acciones de crear, leer, actualizar y eliminar. En este punto, vamos a poner en práctica el conocimiento de los puntos anteriores, en una práctica real. Este bloque además te ayudará a ejercitar conceptos de JavaScript como el manejo del DOM, clases, objetos, módulos, entre otros.
+
+Los bloques están organizados para enseñarte fundamentos, herramientas de búsqueda de errores, conceptos fundamentales, prácticas comunes como subir archivos, posibles errores, y por último una práctica para concretar todo el conocimiento em un ejercicio que se acerque lo más posible al código que escribirás con AJAX para tus proyectos.
+
+Continuemos.
