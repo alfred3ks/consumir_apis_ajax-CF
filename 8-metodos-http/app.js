@@ -60,7 +60,7 @@ let params = {
     userId: 2,
     _limit:3
 }
-let url = new URL('https://jsonplaceholder.typicode.com/posts?');
+let url = new URL('https://jsonplaceholder.typicode.com/posts');
 
 Object.keys(params).forEach((key)=>{
     console.log(key);

@@ -74,7 +74,7 @@ let postParams = {
     userId: 1
 }
 
-let url = ('https://jsonplaceholder.typicode.com/posts?');
+let url = ('https://jsonplaceholder.typicode.com/posts');
 
 
 fetch(url ,{
