@@ -1,0 +1,140 @@
+Continuamos, ahora vamos a ver como subir archivos utilizando AJAX.
+
+Para esto necesitamos un servidor que pueda recibir archivos y basicamente subirlos. Como es dificil encontrar un servidor publico que lo permita pues tendremos que hacer uno.
+
+Lo podemos descargar desde el github:
+
+Tambien hay un video de you tube que muestra como hacer el servidor:
+
+https://www.youtube.com/watch?v=2z6lyszRhkE
+
+Creamos nuestro servidor:
+- Creamos nuestro package.json con npm init -y
+- Instalamos las dependencias que vamos a necesitar para el proyecto: npm install express multer mimi-types cors
+- Creamos nuestro gitignore para ognorar node module.
+- Creamos nuestro archivo del servidor: server.js que va a contener el codigo del servidor:
+
+const express = require('express');
+const app = express();
+const multer = require('multer');
+const mimeTypes = require('mime-types');
+const cors = require('cors');
+
+app.use(cors());
+
+const storage = multer.diskStorage({
+    destination: 'uploads/',
+    filename:function(req,file,cb){
+        cb("", Date.now() + file.originalname +"." + mimeTypes.extension(file.mimetype));
+    }
+})
+
+const upload = multer({
+    storage:storage
+})
+
+app.get("/", (req,res)=>{
+    res.sendFile(__dirname + "/views/index.html");
+})
+
+app.post("/files", upload.single('avatar'),(req,res)=>{
+    res.send("Todo Bien")
+
+})
+
+app.listen(8080, ()=>{console.log("Server started");})
+
+- Procedemos a arrancar el servidor:
+node server.js
+Tambien si tenemos instalado nodemon para que se actualice el servidor:
+nodemon server.js
+
+- Vamos al navegador y colocamos localhost:8080
+
+Ahora creamos una nueva ruta en nuestro servidor, sera donde se guardaran el archivo que nos mandara el usuario bien sea por medio de una peticion AJAX o un formulario, tambien creamos una carpeta uploads que sera donde se guardaran esos archivos.
+
+Tambien creamos una carpeta llamada views y dentro nuestro archivo index.html con la vista donde estara el formulario:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subida de archivos</title>
+</head>
+<body>
+    <h1>Hola Express</h1>
+    <h2>Subir archivo</h2>
+    <form action="/files" method="post" enctype="multipart/form-data">
+        <input type="file" name="avatar" id="">
+        <input type="submit" name="submit" id="">
+    </form>
+</body>
+</html>
+
+OJO al atributo enctype si no lo colocamos el servidor no recibira el archivo.
+Listo ya tenemos nuestro servidor que recibe archivos.
+
+Ahora continuamos con la practica, ya tenemos el servidor.
+Arrancamos el servidor:
+nodemon server.js
+
+Vamos a crear dentro de la carpeta frontend-files nuestro vista que sera la que enviara los archivos al servidor.
+
+Nos recomienda para que este index.html funcione bien como si estuviera en un servidor instalar una dependencia node-static:
+
+npm i -g node-static
+
+OJO de manera global, es solo para arrancar este archivo.
+
+Ahora desde la terminal donde esta el archivo index.html
+
+static
+
+Y se inicia un servidor.
+
+OJO verificar que el puerto de arranque sea diferente del server de node porque sino no funciona, si tienes que cambiar el puerto:
+
+static -p 3030
+
+Existe una forma mas completa de arrancar el servidor estatico:
+
+static -p 3030 -H '{"Cache-Control":"no-cache, must-revalidate"}'
+
+Esto lo que hace es que el navegador no cachee nuestro archivo.
+
+Montamos nuestro archivo app.js
+
+document.querySelector('#form').addEventListener('submit',(e)=>{
+    // Asi le decimos al formulario que nosotros nos encargamos ahora con JS
+    e.preventDefault();
+
+    // Para enviar el archivo
+    // Instanciamos un nuevo objeto d ela clase formdata
+    let formData = new FormData();
+
+    // Obtenemos el archivo
+    let file = document.querySelector('#avatar').files[0];
+
+    // Agregamos a formData el archivo
+    formData.append("avatar", file)
+
+    // Nos conectamos a la web
+    const url = 'http://localhost:8080/files'
+    fetch(url,{
+        method:"post",
+        body:formData
+    })
+    .then(resp=>resp.text()
+    .then(data=> console.log('Enviado...'))
+    .catch(err => console.log(`Error: ${err}`))
+    )
+    return false;
+})
+
+La ventaja de usar AJAX para enviar el archivo. Analizar que eta muy muy interesante.
+
+
+
+
