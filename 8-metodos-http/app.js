@@ -12,7 +12,9 @@ https://jsonplaceholder.typicode.com/posts
 
 */
 
-/* Las peticiones que hemos estado realizando hasta ahora al servidor de tipo son de tipo get, lo podemos ver en la cabecera del navegador en la apartado de network.
+/*
+
+Las peticiones que hemos estado realizando hasta ahora al servidor de tipo son de tipo GET, lo podemos ver en la cabecera del navegador en la apartado de network.
 
 Para mas informacion podemos ver en la web de MDN.
 
