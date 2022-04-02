@@ -1,0 +1,67 @@
+Tenemos una pagina dentro de la carpeta frontend/index.html
+Tenemos un pequeño servidor en la carpeta servidor.
+
+Vamos a hacer peticiones prefight desde el index.html que lo hemos abierto con static que instalamos en el curso anteriormente y el servidor abierto con nodemon en el puerto 8081.
+
+servidor -> nodemon server.js -> puerto 8081
+
+frontend -> stactic -> puerto 8080
+    static -H '{"Cache-Control":"no-cache, must-revalidate"}' -p 8080
+
+Ahora siempre que cambiemos los encabezados permitidos para un peticion simple esta seconvertira en una peticion preflight, lo vemos a continuacion, vamos a cambiar en el estatico vamos agregrle los headers.
+
+headers:{
+            "Content-Type":"application/json"
+        }
+
+Esto ya no es un valor permitido en una peticion simple.
+
+Al recargar volvemos a tener el error:
+
+Access to fetch at 'http://localhost:8081/' from origin 'http://127.0.0.1:8080' has been blocked by CORS policy: Request header field content-type is not allowed by Access-Control-Allow-Headers in preflight response.
+
+Ahora debemos generar esa cabecera en el server.
+
+Para solucionar esto los encabezados permitidos deben estar enlistado en el servidor.
+
+let o = (req, res)=> {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "PUT");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.status(204).send()
+}
+
+app.options('/',o);
+
+Ya con esto tendriamos respuesta desde el servidor.
+Tambien vemos que estamos enviando una en esa peticion AJAX una autenticacion:
+
+    <script>
+        fetch("http://localhost:8081",
+        {method:"PUT",
+        headers:{
+            "Content-Type":"application/json",
+            "Autentication":"Bearer 123838273y2327373gdaygxaaq666wq6w6"
+        }
+    })
+        .then(r => r.json())
+        .then(datos => console.log(datos))
+        .catch(err => console.log(`Error: ${err}`))
+    </script>
+
+Nos falla otra vez entonces devemos agregar ese encabezado en el servidor.
+
+Access to fetch at 'http://localhost:8081/' from origin 'http://127.0.0.1:8080' has been blocked by CORS policy: Request header field autentication is not allowed by Access-Control-Allow-Headers in preflight response.
+
+let o = (req, res)=> {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "PUT");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authentication");
+    res.status(204).send()
+}
+
+app.options('/',o);
+
+res.header("Access-Control-Allow-Headers", "Content-Type, Authentication");
+Como vemos se agregan separados por una coma.
+
