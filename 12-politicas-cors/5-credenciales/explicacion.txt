@@ -1,0 +1,100 @@
+Tenemos una pagina dentro de la carpeta frontend/index.html
+Tenemos un pequeño servidor en la carpeta servidor.
+
+Vamos a hacer peticiones prefight desde el index.html que lo hemos abierto con static que instalamos en el curso anteriormente y el servidor abierto con nodemon en el puerto 8081.
+
+servidor -> nodemon server.js -> puerto 8081
+
+frontend -> stactic -> puerto 8080
+    static -H '{"Cache-Control":"no-cache, must-revalidate"}' -p 8080
+
+Ahora vamos a ver el envio de credenciales, osea cookies.
+
+Por defecto una solicitud AJAX con fetch() no envia cookies.
+
+Tenemos que incluir entre las opciones de fetch() la opcion de credentials con el diferentes valores para que estas se envien.
+
+Estos valores pueden ser:
+include -> cuando son origenes distintos debemos espeficar con este.
+omit -> Para omitirse
+same-origin -> solo se envian las credenciales si estan en el mismo origen
+
+Vamos a definir una cookie:
+
+document.cookie = "username=Alfredo"
+
+Como lo vemos a continuacion:
+
+    <script>
+
+        document.cookie = "Alfredo";
+
+        fetch("http://localhost:8081",
+        {method:"PUT",
+        headers:{
+            "Content-Type":"application/json",
+            "Authentication":"Bearer 123838273y2327373gdaygxaaq666wq6w6"
+        },
+        credentials:"include"
+    })
+        .then(r => r.json())
+        .then(datos => console.log(datos))
+        .catch(err => console.log(`Error: ${err}`))
+    </script>
+
+Ahora vemos que la peticion vuelve a fallar:
+
+Access to fetch at 'http://localhost:8081/' from origin 'http://127.0.0.1:8080' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'.
+
+PUT http://localhost:8081/ net::ERR_FAILED
+
+Aqui vemos un fallo, cuando enviamos la peticion con credenciales Access-Control-Allow-Origin no puede recibir un wildcard (*) debemos recibir es el dominio. http://localhost:8080
+
+let o = (req, res)=> {
+    res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+    res.header("Access-Control-Allow-Methods", "PUT");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authentication");
+    res.status(204).send()
+}
+
+Asi: lo vemos dentro:
+res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+
+Y ademas debemos especificar que un cliente de origen desconocido nos envie cookie, nos quedaria asi:
+
+const express = require('express');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+
+const app = express();
+
+app.use(morgan('tiny'));
+app.use(cookieParser());
+
+let f = (req, res)=> {
+    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.send({
+        hola:"mundo"
+    });
+}
+
+let o = (req, res)=> {
+    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
+    res.header("Access-Control-Allow-Methods", "PUT");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authentication");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.status(204).send()
+}
+
+app.options('/',o);
+
+app.get('/',f);
+app.post('/',f);
+app.put('/',f);
+
+app.listen(8081, () => console.log('Server ON'));
+
+
+
+
