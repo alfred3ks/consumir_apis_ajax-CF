@@ -1,0 +1,35 @@
+Tenemos una pagina dentro de la carpeta frontend/index.html
+Tenemos un pequeño servidor en la carpeta servidor.
+
+Vamos a hacer peticiones prefight desde el index.html que lo hemos abierto con static que instalamos en el curso anteriormente y el servidor abierto con nodemon en el puerto 8081.
+
+servidor -> nodemon server.js -> puerto 8081
+
+frontend -> stactic -> puerto 8080
+    static -H '{"Cache-Control":"no-cache, must-revalidate"}' -p 8080
+
+Para este ejemplo vamos a cambiar el metodo de la consulta AJAX en el index.html en vez de GET enviaremos una peticion PUT.
+
+Recordar que PUT no es un metodo permitido en una peticion simple. Esta se convierte en una peticion preflight.
+
+Nos lanza el suguiente error en consola:
+
+Access to fetch at 'http://localhost:8081/' from origin 'http://127.0.0.1:8080' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+
+Para solucionarlo en el servidor debemos registrar una nueva ruta:
+
+let o = (req, res)=> {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "PUT");
+    res.status(204).send()
+}
+
+app.options('/',o);
+
+Ahora vemos que para la peticion PUT ta tenemos respuesta del servidor.
+
+
+
+
+
+
