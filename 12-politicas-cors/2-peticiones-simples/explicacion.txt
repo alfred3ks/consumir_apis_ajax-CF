@@ -1,0 +1,39 @@
+Tenemos una pagina dentro de la carpeta frontend/index.html
+Tenemos un pequeño servidor en la carpeta servidor.
+
+Vamos a hacer peticiones simples desde el index.html que lo hemos abierto con static que instalamos en el curso anteriormente y el servidor abierto con nodemon en el puerto 8081.
+
+servidor -> nodemon server.js -> puerto 8081
+
+frontend -> stactic -> puerto 8080
+    static -H '{"Cache-Control":"no-cache, must-revalidate"}' -p 8080
+
+Cuando arrancamos ambos y vamos a la consola del ndex.html vemos que nos sale el siguiente aviso:
+
+127.0.0.1/:1 Access to fetch at 'http://localhost:8081/' from origin 'http://127.0.0.1:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+
+La peticion falla, vemos lo que nos dice el mensaje.
+
+En resumen nuestro servidor no esta configurado para manejar las politicas CORs y eso nos ha generado en un error.
+
+Para que un servidor pueda dar respuesta a un cliente en una peticion simple:
+
+la respuesta debe incluir en la cabecera el Access-Control-Allow-Origin
+
+Entonces debemos incluirlo en nuestro servidor:
+
+    res.header("Access-Control-Allow-Origin", "*")
+
+Ese * -> quiere decir que cualquier origen puede acceder a este recurso.
+
+Ahora ya vemos la respuesta por consola, ya cualquier origen, puede acceder a este cliente.
+
+mmmm interesante aqui seria poder bloquear el server para que solo acceda los que queramos.
+Si queremos que solo acceda el index del frontend:
+
+    res.header("Access-Control-Allow-Origin", "http://localhost:3030")
+
+En este caso estamos delante de una peticion simple.
+
+
+
